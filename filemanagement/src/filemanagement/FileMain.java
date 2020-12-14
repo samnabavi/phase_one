@@ -17,6 +17,7 @@ public class FileMain {
 			if(f.isDirectory() && !f.isHidden()) {
 				System.out.println(fff.getName());
 			}
+			dasfdsffds
 		}*/
 	}
 
