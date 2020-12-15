@@ -1,24 +1,23 @@
 package filemanagement;
 
+import java.io.File;
+
 public class FileMain {
 	
 	
 	public static void main(String[] args) {
+		
+		init();		
 		UserInterface ui = new UserInterface();
 		ui.runTheApp();
-		/*
-		File f = new File(".");
-		System.out.println(f.getAbsolutePath());
-		File[] filesList = f.listFiles();
-		for( File fff: filesList) {
-			if(fff.isFile()) {
-				System.out.println(fff.getName());
-			}
-			if(f.isDirectory() && !f.isHidden()) {
-				System.out.println(fff.getName());
-			}
-			dasfdsffds
-		}*/
+
+	}
+	
+	public static void init() {
+		File directory = new File(".\\my-current-directory");
+		if( !directory.exists() ) {
+			directory.mkdir();
+		}
 	}
 
 }

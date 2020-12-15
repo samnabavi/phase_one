@@ -3,6 +3,8 @@ package filemanagement;
 import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class UserInterface {
 
@@ -21,25 +23,27 @@ public class UserInterface {
 
 			this.regularOptions();
 			scan = new Scanner(System.in);
-			int choice = -1;
+			// int choice = -1;
+			String choice = "";
 			try {
-				choice = scan.nextInt();
+				// choice = scan.nextInt();
+				choice = scan.nextLine();
 			} catch (Exception e) {
 				System.out.println("Oooops");
 				continue;
 			}
 
-			switch (choice) {
-			case 1:
+			if (choice.equals("1")) {
 				fileManager.showAllFiles();
 				continue;
-			case 2:
+			} else if (choice.equals("2")) {
 				this.runTheEditOption();
 				continue;
-			case 3:
+			} else if (choice.equals("3")) {
 				return;
-			default:
-				System.out.println("Wrong number");
+			} else {
+				System.out.println("Ooops! Try Again");
+				continue;
 			}
 
 		}
@@ -49,54 +53,57 @@ public class UserInterface {
 		Scanner sc = new Scanner(System.in);
 		while (true) {
 			this.editOptions();
-			int choice = -1;
+			// int choice = -1;
+			String choice = "";
 			try {
-				choice = sc.nextInt();
+				// choice = sc.nextInt();
+				choice = sc.nextLine();
 			} catch (Exception e) {
 				System.out.println("Oooops");
 			}
 			Scanner fname = new Scanner(System.in);
 			String newFileName = "";
 			File newFile = null;
-			switch (choice) {
-			case 1:
+			Pattern pattern = null;
+			Matcher matcher = null;
+			if (choice.equals("1")) {
 				System.out.println("Enter the name of the file");
 				fname = new Scanner(System.in);
 				newFileName = fname.nextLine();
-				newFileName = "./temp/" + newFileName;
-				newFile = new File(newFileName);
-				fileManager.addFile(newFile);
-				/*if (!newFile.exists()) {
-					try {
-						newFile.createNewFile();
-						fileManager.addFile(newFile);
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}*/
-				fileManager.showAllFiles();
+				pattern = Pattern.compile(".*\\.txt$");
+				matcher = pattern.matcher(newFileName);
+				if (matcher.matches()) {
+					newFileName = "./my-current-directory/" + newFileName;
+					newFile = new File(newFileName);
+					fileManager.addFile(newFile);
+					fileManager.showAllFiles();
+				} else {
+					System.out.println("You only can add a .txt file.");
+				}
 				continue;
-			case 2:
+			} else if (choice.equals("2")) {
 				System.out.println("Enter the name of the file");
 				fname = new Scanner(System.in);
 				newFileName = fname.nextLine();
-				newFileName = "./temp/" + newFileName;
+				newFileName = "./my-current-directory/" + newFileName;
 				newFile = new File(newFileName);
 				fileManager.deleteFile(newFile);
 				fileManager.showAllFiles();
 				continue;
-			case 3:
+			} else if (choice.equals("3")) {
 				System.out.println("Enter the name of the file");
 				fname = new Scanner(System.in);
 				newFileName = fname.nextLine();
-				newFileName = "./temp/" + newFileName;
+				newFileName = "./my-current-directory/" + newFileName;
 				newFile = new File(newFileName);
 				fileManager.searchFile(newFile);
 				fileManager.showAllFiles();
 				continue;
-			case 4:
+			} else if (choice.equals("4")) {
 				return;
+			} else {
+				System.out.println("Ooops! Try Again");
+				continue;
 			}
 
 		}

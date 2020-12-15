@@ -10,12 +10,18 @@ import java.util.List;
 public class FileManager implements FileManagerInterface {
 
 	private List<File> fileList;
+	//private List<String> fileNames;
 	
 	public FileManager() {
 		this.fileList = new ArrayList<File>();
-		File currentDirectory = new File("./temp");
+		//this.fileNames = new ArrayList<String>();
+		File currentDirectory = new File("./my-current-directory");
 		this.getAllFiles(currentDirectory);
+		//for(File f : fileList) {
+		//	fileNames.add(f.getName());
+		//}
 		Collections.sort(fileList);
+		//Collections.sort(fileNames);
 		
 
 		
@@ -38,7 +44,7 @@ public class FileManager implements FileManagerInterface {
 	public void showAllFiles() {
 		Collections.sort(fileList);
 		for( File f: fileList) {
-			System.out.println(f.getPath());
+			System.out.println("File: '" + f.getName() + "' in " + f.getPath());
 		}
 		
 	}
@@ -57,8 +63,10 @@ public class FileManager implements FileManagerInterface {
 			}
 			fileList.add(file);
 			System.out.println("File " + file.getName() + " added.");
+			System.out.println("-----------------------------------");
 		} else {
 			System.out.println("File " + file.getName() + " already exists.");
+			System.out.println("-----------------------------------");
 		}
 		
 	}
@@ -66,8 +74,11 @@ public class FileManager implements FileManagerInterface {
 	@Override
 	public void deleteFile(File file) {
 		if(!fileList.contains(file)) {
-			System.out.println("File " + file.toString() + " doesn't exit.");
+			System.out.println("File " + file.getName() + " doesn't exit.");
+			System.out.println("-----------------------------------");
 		} else {
+			System.out.println("File " + file.getName() + " deleted.");
+			System.out.println("-----------------------------------");
 			fileList.remove(file);
 			file.delete();
 
@@ -77,9 +88,11 @@ public class FileManager implements FileManagerInterface {
 	@Override
 	public void searchFile(File file) {
 		if(!fileList.contains(file)) {
-			System.out.println("File " + file.toString() + " doesn't exit.");
+			System.out.println("File " + file.getName() + " doesn't exit.");
+			System.out.println("-----------------------------------");
 		} else {
-			System.out.println("File " + file.toString() + " exits.");
+			System.out.println("File " + file.getName() + " exits in " + file.getPath());
+			System.out.println("-----------------------------------");
 		}
 		
 	}
