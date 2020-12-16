@@ -16,8 +16,8 @@ public class UserInterface {
 	}
 
 	public void runTheApp() {
-		System.out.println("Welcome to the app!");
-		System.out.println("Programer's name: Saman Nabavi");
+		System.out.println("Welcome to the LockedMe.com application!");
+		System.out.println("Author: Saman Nabavi\n");
 		fileManager.showAllFiles();
 		while (true) {
 
@@ -78,17 +78,28 @@ public class UserInterface {
 					fileManager.addFile(newFile);
 					fileManager.showAllFiles();
 				} else {
-					System.out.println("You only can add a .txt file.");
+					System.out.println("You can only add a .txt file.");
+					System.out.println("-----------------------------------");
+
 				}
 				continue;
 			} else if (choice.equals("2")) {
 				System.out.println("Enter the name of the file");
 				fname = new Scanner(System.in);
 				newFileName = fname.nextLine();
-				newFileName = "./my-current-directory/" + newFileName;
-				newFile = new File(newFileName);
-				fileManager.deleteFile(newFile);
-				fileManager.showAllFiles();
+				pattern = Pattern.compile(".*\\.txt$");
+				matcher = pattern.matcher(newFileName);
+				if (matcher.matches()) {
+
+					newFileName = "./my-current-directory/" + newFileName;
+					newFile = new File(newFileName);
+					fileManager.deleteFile(newFile);
+					fileManager.showAllFiles();
+				} else {
+					System.out.println("You can only delete a .txt file.");
+					System.out.println("-----------------------------------");
+
+				}
 				continue;
 			} else if (choice.equals("3")) {
 				System.out.println("Enter the name of the file");
